@@ -8,7 +8,7 @@
 <style>
 body{
   margin:0;
-  font-family: 'Comic Sans MS', Arial, sans-serif;
+  font-family:'Comic Sans MS', Arial, sans-serif;
   background:linear-gradient(135deg,#ff4d8d,#ff9ecb,#ffe4ef);
   overflow:hidden;
 }
@@ -29,12 +29,12 @@ body{
   padding:35px;
   border-radius:30px;
   box-shadow:0 10px 35px rgba(0,0,0,.25);
-  backdrop-filter: blur(8px);
+  backdrop-filter:blur(8px);
   max-width:700px;
 }
 
 h1{
-  font-size:38px;
+  font-size:36px;
   text-shadow:2px 2px 8px #ff006e;
 }
 
@@ -49,20 +49,18 @@ button{
   font-weight:bold;
 }
 
-.btn-si, .btn-girar{
+.btn-si,.btn-girar{
   background:#ff006e;
   color:white;
-  box-shadow:0 8px 20px rgba(255,0,110,.4);
 }
 
-.btn-si:hover, .btn-girar:hover{
-  transform:scale(1.12);
+.btn-si:hover,.btn-girar:hover{
+  transform:scale(1.1);
 }
 
 .btn-no{
   background:white;
   color:#ff006e;
-  position:relative;
 }
 
 .resultado{
@@ -70,15 +68,14 @@ button{
   color:#ff006e;
   padding:25px;
   border-radius:25px;
-  font-size:25px;
+  font-size:24px;
   font-weight:bold;
   margin:25px 0;
-  box-shadow:0 8px 25px rgba(0,0,0,.25);
 }
 
 .ruleta{
-  font-size:85px;
-  animation: latir 1s infinite;
+  font-size:80px;
+  animation:latir 1s infinite;
 }
 
 @keyframes latir{
@@ -92,8 +89,42 @@ button{
 }
 
 @keyframes girar{
-  from{transform:rotate(0deg) scale(1);}
-  to{transform:rotate(720deg) scale(1.2);}
+  from{transform:rotate(0deg);}
+  to{transform:rotate(720deg);}
+}
+
+.btn-pelicula{
+  background:#111;
+  color:white;
+  box-shadow:0 8px 20px rgba(0,0,0,.4);
+}
+
+.video-container{
+  min-height:100vh;
+  background:black;
+  color:white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+}
+
+.video-container h1{
+  color:#e50914;
+  font-size:38px;
+}
+
+.video-amor{
+  width:90%;
+  max-width:850px;
+  border-radius:20px;
+  box-shadow:0 0 35px rgba(229,9,20,.6);
+}
+
+.video-container p{
+  font-size:22px;
 }
 </style>
 </head>
@@ -109,7 +140,7 @@ button{
 </div>
 
 <script>
-const razones = [
+const razones=[
   "🥺 Porque te gusta chillar por todo, pero así te amo más.",
   "😈❤️ Porque me encanta hacerte enojar y luego hacerte reír.",
   "😍 Porque estás bien hermosa, mi amol.",
@@ -119,54 +150,74 @@ const razones = [
 ];
 
 function aceptarAmor(){
-  document.getElementById("app").innerHTML = `
+  document.getElementById("app").innerHTML=`
     <div class="card">
       <h1>🎡 Razones por las que te amo muchisimoooo ❤️</h1>
       <div class="ruleta" id="ruleta">💖</div>
       <div class="resultado" id="resultado">Presiona la ruleta, mi amor 🥺❤️</div>
+
       <button class="btn-girar" onclick="girarRuleta()">Girar Ruleta 🎡</button>
+
+      <button class="btn-pelicula" onclick="verPelicula()">
+        🎬 Ver nuestra película ❤️
+      </button>
     </div>
   `;
 }
 
 function girarRuleta(){
-  const ruleta = document.getElementById("ruleta");
-  const resultado = document.getElementById("resultado");
-  const random = Math.floor(Math.random() * razones.length);
+  const ruleta=document.getElementById("ruleta");
+  const resultado=document.getElementById("resultado");
+  const random=Math.floor(Math.random()*razones.length);
 
   ruleta.classList.remove("girar");
   void ruleta.offsetWidth;
   ruleta.classList.add("girar");
 
-  resultado.innerHTML = "A ver qué sale, mi chilloncita... 🎡😂";
+  resultado.innerHTML="A ver qué sale, mi chilloncita... 🎡😂";
 
   setTimeout(()=>{
-    resultado.innerHTML = razones[random];
+    resultado.innerHTML=razones[random];
     corazones();
   },900);
 }
 
+function verPelicula(){
+  document.body.innerHTML=`
+    <div class="video-container">
+      <h1>🎬 ROODYFLIX PRESENTA ❤️</h1>
+
+      <video controls autoplay class="video-amor">
+        <source src="pelicula.mp4" type="video/mp4">
+        Tu navegador no puede reproducir este video.
+      </video>
+
+      <p>La viejita renegona y el chico que se enamoró de ella ❤️</p>
+    </div>
+  `;
+}
+
 function moverNo(){
-  const btn = document.getElementById("btnNo");
-  btn.style.position = "fixed";
-  btn.style.left = Math.random() * 80 + "vw";
-  btn.style.top = Math.random() * 80 + "vh";
+  const btn=document.getElementById("btnNo");
+  btn.style.position="fixed";
+  btn.style.left=Math.random()*80+"vw";
+  btn.style.top=Math.random()*80+"vh";
 }
 
 function corazones(){
   for(let i=0;i<20;i++){
-    const c = document.createElement("div");
-    c.innerHTML = "❤️";
-    c.style.position = "fixed";
-    c.style.left = Math.random()*100+"vw";
-    c.style.top = "100vh";
-    c.style.fontSize = (20 + Math.random()*35)+"px";
-    c.style.pointerEvents = "none";
+    const c=document.createElement("div");
+    c.innerHTML="❤️";
+    c.style.position="fixed";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top="100vh";
+    c.style.fontSize=(20+Math.random()*35)+"px";
+    c.style.pointerEvents="none";
     document.body.appendChild(c);
 
     c.animate([
-      {transform:"translateY(0)", opacity:1},
-      {transform:"translateY(-100vh)", opacity:0}
+      {transform:"translateY(0)",opacity:1},
+      {transform:"translateY(-100vh)",opacity:0}
     ],{duration:3000});
 
     setTimeout(()=>c.remove(),3000);
