@@ -8,16 +8,41 @@
 </section>
 
 <script>
+const razones = [
+  "🥺 Porque te gusta chillar por todo, pero así te amo más.",
+  "😈❤️ Porque me encanta hacerte enojar y luego hacerte reír.",
+  "😍 Porque estás bien hermosa, mi amol.",
+  "🌊❤️ Porque me encanta estar a tu ladito en la playita.",
+  "😂💕 Porque peleamos por todo, pero siempre termino haciéndote reír.",
+  "❤️ Porque eres tú, y con eso me basta."
+];
+
 function aceptarAmor() {
-  alert("Yo sabíaaaa 😍❤️ Ahora sí puedes entrar a mi sorpresita.");
+  document.body.innerHTML = `
+    <div class="ruleta-container">
+      <h1>🎡 Razones por las que te amo muchisimoooo ❤️</h1>
+
+      <div id="resultado" class="resultado">
+        Presiona la ruleta mi amor 🥺❤️
+      </div>
+
+      <button onclick="girarRuleta()" class="btn-girar">
+        Girar Ruleta 🎡
+      </button>
+    </div>
+  `;
+}
+
+function girarRuleta() {
+  const numero = Math.floor(Math.random() * razones.length);
+  document.getElementById("resultado").innerHTML = razones[numero];
+  crearCorazones();
 }
 
 function moverNo() {
   const btnNo = document.getElementById("btnNo");
-
   const maxX = window.innerWidth - btnNo.offsetWidth - 20;
   const maxY = window.innerHeight - btnNo.offsetHeight - 20;
-
   const randomX = Math.floor(Math.random() * maxX);
   const randomY = Math.floor(Math.random() * maxY);
 
@@ -25,10 +50,39 @@ function moverNo() {
   btnNo.style.left = randomX + "px";
   btnNo.style.top = randomY + "px";
 }
+
+function crearCorazones() {
+  for (let i = 0; i < 15; i++) {
+    let corazon = document.createElement("div");
+    corazon.innerHTML = "❤️";
+    corazon.style.position = "fixed";
+    corazon.style.left = Math.random() * 100 + "vw";
+    corazon.style.top = "100vh";
+    corazon.style.fontSize = 20 + Math.random() * 30 + "px";
+    document.body.appendChild(corazon);
+
+    corazon.animate([
+      {transform:"translateY(0px)", opacity:1},
+      {transform:"translateY(-100vh)", opacity:0}
+    ], {
+      duration:3000,
+      easing:"ease-out"
+    });
+
+    setTimeout(() => {
+      corazon.remove();
+    }, 3000);
+  }
+}
 </script>
 
 <style>
-.pantalla-inicio {
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.pantalla-inicio, .ruleta-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #ff8fab, #ffc2d1, #ffe5ec);
   display: flex;
@@ -37,10 +91,9 @@ function moverNo() {
   align-items: center;
   text-align: center;
   overflow: hidden;
-  font-family: Arial, sans-serif;
 }
 
-.pantalla-inicio h1 {
+.pantalla-inicio h1, .ruleta-container h1 {
   font-size: 35px;
   color: #fff;
   text-shadow: 2px 2px 5px #ff4d6d;
@@ -52,29 +105,36 @@ function moverNo() {
   gap: 20px;
 }
 
-.botones-amor button {
+.botones-amor button, .btn-girar {
   padding: 15px 35px;
   font-size: 22px;
   border: none;
   border-radius: 30px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.btn-si {
+.btn-si, .btn-girar {
   background: #ff006e;
   color: white;
   box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
-}
-
-.btn-si:hover {
-  transform: scale(1.1);
-  background: #d90452;
 }
 
 .btn-no {
   background: white;
   color: #ff006e;
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.resultado {
+  width: 80%;
+  max-width: 700px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  font-size: 24px;
+  margin: 25px;
+  color: #ff006e;
+  font-weight: bold;
+  box-shadow: 0 0 20px rgba(0,0,0,.15);
 }
 </style>
