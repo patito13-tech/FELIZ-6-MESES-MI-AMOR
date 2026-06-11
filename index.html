@@ -1,0 +1,80 @@
+<section class="pantalla-inicio">
+  <h1>¿Amor, tú me quieres muchitooo? 🥺❤️</h1>
+
+  <div class="botones-amor">
+    <button onclick="aceptarAmor()" class="btn-si">Sí ❤️</button>
+    <button onmouseover="moverNo()" onclick="moverNo()" id="btnNo" class="btn-no">No 😒</button>
+  </div>
+</section>
+
+<script>
+function aceptarAmor() {
+  alert("Yo sabíaaaa 😍❤️ Ahora sí puedes entrar a mi sorpresita.");
+}
+
+function moverNo() {
+  const btnNo = document.getElementById("btnNo");
+
+  const maxX = window.innerWidth - btnNo.offsetWidth - 20;
+  const maxY = window.innerHeight - btnNo.offsetHeight - 20;
+
+  const randomX = Math.floor(Math.random() * maxX);
+  const randomY = Math.floor(Math.random() * maxY);
+
+  btnNo.style.position = "fixed";
+  btnNo.style.left = randomX + "px";
+  btnNo.style.top = randomY + "px";
+}
+</script>
+
+<style>
+.pantalla-inicio {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ff8fab, #ffc2d1, #ffe5ec);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+}
+
+.pantalla-inicio h1 {
+  font-size: 35px;
+  color: #fff;
+  text-shadow: 2px 2px 5px #ff4d6d;
+  margin-bottom: 30px;
+}
+
+.botones-amor {
+  display: flex;
+  gap: 20px;
+}
+
+.botones-amor button {
+  padding: 15px 35px;
+  font-size: 22px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-si {
+  background: #ff006e;
+  color: white;
+  box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
+}
+
+.btn-si:hover {
+  transform: scale(1.1);
+  background: #d90452;
+}
+
+.btn-no {
+  background: white;
+  color: #ff006e;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+</style>
