@@ -1,11 +1,112 @@
-<section class="pantalla-inicio">
-  <h1>¿Amor, tú me quieres muchitooo? 🥺❤️</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz 6 meses mi amor ❤️</title>
 
-  <div class="botones-amor">
-    <button onclick="aceptarAmor()" class="btn-si">Sí ❤️</button>
-    <button onmouseover="moverNo()" onclick="moverNo()" id="btnNo" class="btn-no">No 😒</button>
+<style>
+body{
+  margin:0;
+  font-family: 'Comic Sans MS', Arial, sans-serif;
+  background:linear-gradient(135deg,#ff4d8d,#ff9ecb,#ffe4ef);
+  overflow:hidden;
+}
+
+.pantalla{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:20px;
+  color:white;
+}
+
+.card{
+  background:rgba(255,255,255,0.25);
+  padding:35px;
+  border-radius:30px;
+  box-shadow:0 10px 35px rgba(0,0,0,.25);
+  backdrop-filter: blur(8px);
+  max-width:700px;
+}
+
+h1{
+  font-size:38px;
+  text-shadow:2px 2px 8px #ff006e;
+}
+
+button{
+  padding:15px 35px;
+  margin:15px;
+  border:none;
+  border-radius:30px;
+  font-size:22px;
+  cursor:pointer;
+  transition:.3s;
+  font-weight:bold;
+}
+
+.btn-si, .btn-girar{
+  background:#ff006e;
+  color:white;
+  box-shadow:0 8px 20px rgba(255,0,110,.4);
+}
+
+.btn-si:hover, .btn-girar:hover{
+  transform:scale(1.12);
+}
+
+.btn-no{
+  background:white;
+  color:#ff006e;
+  position:relative;
+}
+
+.resultado{
+  background:white;
+  color:#ff006e;
+  padding:25px;
+  border-radius:25px;
+  font-size:25px;
+  font-weight:bold;
+  margin:25px 0;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+}
+
+.ruleta{
+  font-size:85px;
+  animation: latir 1s infinite;
+}
+
+@keyframes latir{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.15);}
+  100%{transform:scale(1);}
+}
+
+.girar{
+  animation:girar .9s ease-in-out;
+}
+
+@keyframes girar{
+  from{transform:rotate(0deg) scale(1);}
+  to{transform:rotate(720deg) scale(1.2);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="pantalla" id="app">
+  <div class="card">
+    <h1>¿Amor, tú me quieres muchitooo? 🥺❤️</h1>
+    <button class="btn-si" onclick="aceptarAmor()">Sí ❤️</button>
+    <button class="btn-no" id="btnNo" onmouseover="moverNo()" onclick="moverNo()">No 😒</button>
   </div>
-</section>
+</div>
 
 <script>
 const razones = [
@@ -17,124 +118,61 @@ const razones = [
   "❤️ Porque eres tú, y con eso me basta."
 ];
 
-function aceptarAmor() {
-  document.body.innerHTML = `
-    <div class="ruleta-container">
+function aceptarAmor(){
+  document.getElementById("app").innerHTML = `
+    <div class="card">
       <h1>🎡 Razones por las que te amo muchisimoooo ❤️</h1>
-
-      <div id="resultado" class="resultado">
-        Presiona la ruleta mi amor 🥺❤️
-      </div>
-
-      <button onclick="girarRuleta()" class="btn-girar">
-        Girar Ruleta 🎡
-      </button>
+      <div class="ruleta" id="ruleta">💖</div>
+      <div class="resultado" id="resultado">Presiona la ruleta, mi amor 🥺❤️</div>
+      <button class="btn-girar" onclick="girarRuleta()">Girar Ruleta 🎡</button>
     </div>
   `;
 }
 
-function girarRuleta() {
-  const numero = Math.floor(Math.random() * razones.length);
-  document.getElementById("resultado").innerHTML = razones[numero];
-  crearCorazones();
+function girarRuleta(){
+  const ruleta = document.getElementById("ruleta");
+  const resultado = document.getElementById("resultado");
+  const random = Math.floor(Math.random() * razones.length);
+
+  ruleta.classList.remove("girar");
+  void ruleta.offsetWidth;
+  ruleta.classList.add("girar");
+
+  resultado.innerHTML = "A ver qué sale, mi chilloncita... 🎡😂";
+
+  setTimeout(()=>{
+    resultado.innerHTML = razones[random];
+    corazones();
+  },900);
 }
 
-function moverNo() {
-  const btnNo = document.getElementById("btnNo");
-  const maxX = window.innerWidth - btnNo.offsetWidth - 20;
-  const maxY = window.innerHeight - btnNo.offsetHeight - 20;
-  const randomX = Math.floor(Math.random() * maxX);
-  const randomY = Math.floor(Math.random() * maxY);
-
-  btnNo.style.position = "fixed";
-  btnNo.style.left = randomX + "px";
-  btnNo.style.top = randomY + "px";
+function moverNo(){
+  const btn = document.getElementById("btnNo");
+  btn.style.position = "fixed";
+  btn.style.left = Math.random() * 80 + "vw";
+  btn.style.top = Math.random() * 80 + "vh";
 }
 
-function crearCorazones() {
-  for (let i = 0; i < 15; i++) {
-    let corazon = document.createElement("div");
-    corazon.innerHTML = "❤️";
-    corazon.style.position = "fixed";
-    corazon.style.left = Math.random() * 100 + "vw";
-    corazon.style.top = "100vh";
-    corazon.style.fontSize = 20 + Math.random() * 30 + "px";
-    document.body.appendChild(corazon);
+function corazones(){
+  for(let i=0;i<20;i++){
+    const c = document.createElement("div");
+    c.innerHTML = "❤️";
+    c.style.position = "fixed";
+    c.style.left = Math.random()*100+"vw";
+    c.style.top = "100vh";
+    c.style.fontSize = (20 + Math.random()*35)+"px";
+    c.style.pointerEvents = "none";
+    document.body.appendChild(c);
 
-    corazon.animate([
-      {transform:"translateY(0px)", opacity:1},
+    c.animate([
+      {transform:"translateY(0)", opacity:1},
       {transform:"translateY(-100vh)", opacity:0}
-    ], {
-      duration:3000,
-      easing:"ease-out"
-    });
+    ],{duration:3000});
 
-    setTimeout(() => {
-      corazon.remove();
-    }, 3000);
+    setTimeout(()=>c.remove(),3000);
   }
 }
 </script>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-}
-
-.pantalla-inicio, .ruleta-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #ff8fab, #ffc2d1, #ffe5ec);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  overflow: hidden;
-}
-
-.pantalla-inicio h1, .ruleta-container h1 {
-  font-size: 35px;
-  color: #fff;
-  text-shadow: 2px 2px 5px #ff4d6d;
-  margin-bottom: 30px;
-}
-
-.botones-amor {
-  display: flex;
-  gap: 20px;
-}
-
-.botones-amor button, .btn-girar {
-  padding: 15px 35px;
-  font-size: 22px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-}
-
-.btn-si, .btn-girar {
-  background: #ff006e;
-  color: white;
-  box-shadow: 0 5px 15px rgba(255, 0, 110, 0.4);
-}
-
-.btn-no {
-  background: white;
-  color: #ff006e;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-}
-
-.resultado {
-  width: 80%;
-  max-width: 700px;
-  background: white;
-  padding: 25px;
-  border-radius: 20px;
-  font-size: 24px;
-  margin: 25px;
-  color: #ff006e;
-  font-weight: bold;
-  box-shadow: 0 0 20px rgba(0,0,0,.15);
-}
-</style>
+</body>
+</html>
